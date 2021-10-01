@@ -1,0 +1,189 @@
+
+
+User Access Verification
+
+Username: djigui
+Password: 
+R1>enable
+Password: 
+R1#terminal length 0
+R1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R1(config)#router ospf 1
+R1(config-router)#no network 100.10.10.0 0.0.0.255 area 0
+R1(config-router)#no network 200.10.10.0 0.0.0.255 area 0
+R1(config-router)#exit
+R1(config)#exit
+R1#sh run
+Building configuration...
+
+Current configuration : 2021 bytes
+!
+version 12.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+enable password djigui
+!
+no aaa new-model
+memory-size iomem 5
+no ip icmp rate-limit unreachable
+ip cef
+!
+!
+no ip dhcp use vrf connected
+!
+ip dhcp pool poolR1
+   network 10.10.10.0 255.255.255.0
+   default-router 10.10.10.1 
+   dns-server 10.10.10.1 
+   domain-name wr
+!
+!
+no ip domain lookup
+ip domain name djigui.com
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+username djigui password 0 djigui
+archive
+ log config
+  hidekeys
+! 
+!
+!
+!
+ip tcp synwait-time 5
+ip ssh version 2
+ip scp server enable
+!
+!
+!
+!
+interface Loopback0
+ no ip address
+!
+interface FastEthernet0/0
+ ip address 10.10.10.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface Serial0/0
+ ip address 50.50.50.1 255.255.255.0
+ clock rate 2000000
+!
+interface FastEthernet0/1
+ ip address 20.20.20.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface Serial0/1
+ ip address 30.30.30.1 255.255.255.0
+ clock rate 2000000
+!
+interface Serial0/2
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+interface Serial0/3
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+interface FastEthernet1/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface FastEthernet2/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+router eigrp 10
+ auto-summary
+!
+router ospf 1
+ log-adjacency-changes
+!
+router rip
+ version 2
+ network 10.0.0.0
+ network 20.0.0.0
+ network 30.0.0.0
+ network 50.0.0.0
+ no auto-summary
+!
+ip forward-protocol nd
+ip route 0.0.0.0 0.0.0.0 10.1.1.2
+ip route 8.8.8.0 255.255.255.0 10.1.1.2
+ip route 10.1.1.0 255.255.255.0 30.30.30.2
+!
+!
+no ip http server
+no ip http secure-server
+!
+no cdp log mismatch duplex
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line vty 0 4
+ login local
+ transport input all
+!
+!
+end
+
+R1#exit
+

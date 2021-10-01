@@ -1,0 +1,30 @@
+
+
+User Access Verification
+
+Username: djigui
+Password: 
+R3>enable
+Password: 
+R3#terminal length 0
+R3#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R3(config)#int loop 0
+R3(config-if)#no ip address 1.1.1.1 255.255.255.0
+R3(config-if)#exit
+R3(config)#exit
+R3#sh ip int brief
+Interface                  IP-Address      OK? Method Status                Protocol
+FastEthernet0/0            unassigned      YES NVRAM  administratively down down    
+Serial0/0                  50.50.50.2      YES NVRAM  up                    up      
+FastEthernet0/1            unassigned      YES NVRAM  administratively down down    
+Serial0/1                  unassigned      YES NVRAM  administratively down down    
+Serial0/2                  unassigned      YES NVRAM  administratively down down    
+Serial0/3                  unassigned      YES NVRAM  administratively down down    
+FastEthernet1/0            unassigned      YES NVRAM  up                    up      
+FastEthernet1/0.1          192.168.11.1    YES NVRAM  up                    up      
+FastEthernet1/0.2          192.168.12.1    YES NVRAM  up                    up      
+FastEthernet2/0            unassigned      YES NVRAM  administratively down down    
+Loopback0                  unassigned      YES manual up                    up      
+R3#exit
+

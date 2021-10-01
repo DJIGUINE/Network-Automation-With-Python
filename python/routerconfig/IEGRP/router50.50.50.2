@@ -1,0 +1,183 @@
+
+
+User Access Verification
+
+Username: djigui
+Password: 
+R3>enable
+Password: 
+R3#terminal length 0
+R3#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R3(config)#router eigrp 10
+R3(config-router)#network 100.10.10.0 255.255.255.0
+R3(config-router)#network 200.10.10.0 255.255.255.0
+R3(config-router)#exit
+R3(config)#exit
+R3#sh run
+Building configuration...
+
+Current configuration : 2159 bytes
+!
+version 12.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R3
+!
+boot-start-marker
+boot-end-marker
+!
+enable password djigui
+!
+no aaa new-model
+memory-size iomem 5
+no ip icmp rate-limit unreachable
+ip cef
+!
+!
+no ip dhcp use vrf connected
+ip dhcp excluded-address 192.168.11.1 192.168.11.10
+ip dhcp excluded-address 192.168.12.1 192.168.12.10
+!
+ip dhcp pool 1
+   network 192.168.11.0 255.255.255.0
+   default-router 192.168.11.1 
+!
+ip dhcp pool 2
+   network 192.168.12.0 255.255.255.0
+   default-router 192.168.12.1 
+!
+!
+no ip domain lookup
+ip domain name djigui.com
+ip auth-proxy max-nodata-conns 3
+ip admission max-nodata-conns 3
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+username djigui password 0 djigui
+!
+!
+ip tcp synwait-time 5
+ip ssh version 2
+ip scp server enable
+! 
+!
+!
+!
+!
+interface FastEthernet0/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface Serial0/0
+ ip address 50.50.50.2 255.255.255.0
+ clock rate 2000000
+!
+interface FastEthernet0/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface Serial0/1
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+interface Serial0/2
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+interface Serial0/3
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+interface FastEthernet1/0
+ no ip address
+ speed 100
+ full-duplex
+ no cdp log mismatch duplex
+!
+interface FastEthernet1/0.1
+ encapsulation dot1Q 11
+ ip address 192.168.11.1 255.255.255.0
+!
+interface FastEthernet1/0.2
+ encapsulation dot1Q 12
+ ip address 192.168.12.1 255.255.255.0
+!
+interface FastEthernet2/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+router eigrp 10
+ network 100.10.10.0 0.0.0.255
+ network 200.10.10.0
+ auto-summary
+!
+router rip
+ version 2
+ network 50.0.0.0
+ network 192.168.11.0
+ network 192.168.12.0
+ no auto-summary
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+no cdp log mismatch duplex
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line vty 0 4
+ login local
+ transport input all
+!
+!
+end
+
+R3#exit
+

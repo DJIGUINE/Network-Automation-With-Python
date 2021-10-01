@@ -1,0 +1,6 @@
+no telnet 191.168.1.0 255.255.255.0 inside
+no telnet 30.30.30.0  255.255.255.0 inside
+no ssh 30.30.30.0  255.255.255.0 inside
+no telnet 10.1.1.0 255.255.255.0 inside
+no ssh 10.1.1.0  255.255.255.0 inside
+wr

@@ -1,0 +1,10 @@
+no vlan 11 
+no vlan 12 
+int range g3/1 - 3
+no switchport mode access
+int range g2/1 - 3 
+no switchport mode access
+int  g1/2
+no switchport trunk encapsulation dot1q
+no switchport trunk allowed vlan 1,11,12
+spanning-tree link-type point-to-point
